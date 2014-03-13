@@ -28,17 +28,7 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
-		PrintWriter pw = response.getWriter();
-		 pw.println("<html>");
-		  pw.println("<head><title>Nate's Website</title></head>");
-		  pw.println("<body>");
-		  pw.println();
-		  pw.println("<h1>Hello World</h1>");
-		  pw.println("<form action=\"WebPracticeRefistered.html\" method=\"get\"");
-		  pw.println("User Name: <input type=\"text\" name=\"name\"><br>");
-		  pw.println("Password: <iput type=\"test\");
-		  pw.println("</body></html>");
+		response.sendRedirect("MainPage");
 
 	}
 
@@ -46,7 +36,10 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		response.setContentType("text/plain");
+		response.getWriter().println("works");
+		response.getWriter().println(request.getParameter("name"));
+		
 	}
 
 }

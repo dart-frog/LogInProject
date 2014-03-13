@@ -1,0 +1,30 @@
+<html>
+	<head>
+	<title> Web Practice </title>
+	<link rel="stylesheet" type="text/css" href="css.css">
+	<style type="text/css">
+		  body {background-color: #FF0000;background-image: url("http://newevolutiondesigns.com/images/freebies/retro-wallpaper-1.jpg");
+		  background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: center;
+		  }
+		 
+	</style>
+	</head>
+	
+	<body style = "background-color:#ff0000;">
+	<h1> Welcome to Nate's website please log in</h1>
+	<div style= "text-align: center">
+	<form action="Register" method="Post">
+
+	  User Name: <input type="text" name="name"><br>
+	  Password: <input type="password" name="countries"><br> 	
+	  <input type="submit" value="Submit"> 
+	  </div>
+	  
+	</form>
+	
+	
+	</body>
+
+</html>
