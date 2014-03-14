@@ -14,16 +14,26 @@
 	
 	<body style = "background-color:#ff0000;">
 	<h1> Welcome to Nate's website please log in</h1>
-	<div style= "text-align: center">
+	
+	
+	<div style= "text-align: left">
+	<p> New Users </p>
 	<form action="Register" method="Post">
 
 	  User Name: <input type="text" name="name"><br>
-	  Password: <input type="password" name="countries"><br> 	
+	  Password: <input type="password" name="password"><br> 	
 	  <input type="submit" value="Submit"> 
 	  </div>
 	  
+	<div style = "text-align:right">
+	<p> Returning Users </p>
 	</form>
 	
+	<form action="SignIn" method="Post">
+	UserName: <input type="text" name="oldName"><br>
+	Password: <input type="password" name="oldPassword"><br>
+	<input type="submit" value="Submit">
+	</div>
 	
 	</body>
 
