@@ -41,6 +41,7 @@ public class Register extends HttpServlet {
 		response.getWriter().println(request.getParameter("name"));
 		Connect stream = new Connect();
 		stream.addNewUser(request.getParameter("name"), request.getParameter("password"));
+		
 	}
 
 }

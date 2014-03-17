@@ -74,19 +74,22 @@ public class Connect {
 		}
 		return false;
 	}
-	public void deleteVehicle(int id){
+	public String display(){
 		Connection con = getConnection();
+		String x ="";
 		try{
-		String sql = "DELETE FROM nate.Vehicle WHERE id = ?";
-		PreparedStatement pstmt = con.prepareStatement(sql);
-		pstmt.setLong(1, id);
-		int count = pstmt.executeUpdate();
-		System.out.println("ROWS AFECTED:" + count);
-		pstmt.close();
+		String sql = "Select * From nate.Register";
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()){
+			x += (rs.getString("userName") + rs.getString("passWord"));
+		}
+		stmt.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		return x;
 	}
 	
 }

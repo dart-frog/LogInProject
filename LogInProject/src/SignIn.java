@@ -34,7 +34,10 @@ public class SignIn extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connect stream = new Connect();
-		if (stream.SameUser(request.getParameter("oldUserName"), "userName"));
+		if (stream.SameUser(request.getParameter("oldUserName"), "userName") && stream.SameUser(request.getParameter("oldPassword"), "password")){
+			response.setContentType("text/plain");
+			response.getWriter().println("permission granted");
+		}
 			
 	}
 
