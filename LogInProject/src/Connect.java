@@ -1,8 +1,10 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
-import java.util.ArrayList;
+
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
 
 public class Connect {
@@ -14,7 +16,25 @@ public class Connect {
 	private final String userName = "csproj";
 	private final String password = "DoYourHomework";
 	private final String selectMethod = "cursor";
-	
+	/*
+	   SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setUser("csproj");
+        ds.setPassword("DoYourHomework");
+        ds.setServerName("fourwaylo.com");
+        ds.setPortNumber(8889);
+        ds.setDatabaseName("csproj");
+        try {
+                     Connection con = ds.getConnection();
+                     Statement stmt = con.createStatement();
+                     stmt.executeQuery("SELECT * from My.Table;");
+                    
+              } catch (Exception e) {
+                     // TODO Auto-generated catch block
+                     e.printStackTrace();
+              }
+ 
+Let us know if you’re still having issues
+	 */
 	public Connect(){}
 	
 	private String getConnectionUrl(){
@@ -22,15 +42,23 @@ public class Connect {
 	}
 	
 	public java.sql.Connection getConnection(){
+		
+		SQLServerDataSource ds = new SQLServerDataSource();
+		ds.setUser("csproj");
+		ds.setPassword("DoYourHomework");
+		ds.setServerName("fourwaylo.com");
+		ds.setPortNumber(8889);
+		ds.setDatabaseName("csproj");
+		
 		try {
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerConnection");
-				con = java.sql.DriverManager.getConnection(getConnectionUrl(), userName, password);
-				if(con != null) System.out.println("Connection Successful");
-			}catch(Exception e){
-				e.printStackTrace();
-				System.out.println("Error Trace in getConnection() : " + e.getMessage());
-			}
-			return con;
+		    Connection conn = ds.getConnection();
+		    return conn;
+		} 
+		catch (Exception e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+        return null;
 	}
 	private void closeConnection(){
 		try{
@@ -44,9 +72,9 @@ public class Connect {
 	public void addNewUser(String username, String password){
 		Connection con = getConnection();
 		try{
-			String sql = "INSERT INTO nate.Register(userName, password) VALUES (?,?)";
+			String sql = "INSERT INTO nate.Registry (userName, password) VALUES (?,?)";
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, userName);
+			pstmt.setString(1, username);
 			pstmt.setString(2, password);
 			int count = pstmt.executeUpdate();
 			System.out.println("ROWS AFFECTED:" + count);
@@ -59,17 +87,17 @@ public class Connect {
 	public boolean SameUser(String hat, String pop){
 		Connection con = getConnection();
 		try{
-		String sql = "Select ? From nate.Register";
-		PreparedStatement pstmt = con.prepareStatement(sql);
-		pstmt.setString(1, pop);
-		ResultSet rs = pstmt.executeQuery(sql);
-		if (rs.getString(pop) == hat){
-			pstmt.close();
-			return true;
-		}
+			String sql = "SELECT " +  pop+ " FROM nate.Registry";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			//pstmt.setString(1, pop);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.getString(0).equals(hat)){
+				pstmt.close();
+				System.out.println();
+				return true;
+			}
 		pstmt.close();
-		}
-		catch(Exception e){
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 		return false;
@@ -78,7 +106,7 @@ public class Connect {
 		Connection con = getConnection();
 		String x ="";
 		try{
-		String sql = "Select * From nate.Register";
+		String sql = "Select * From nate.Registry";
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		while (rs.next()){
