@@ -35,12 +35,13 @@ public class SignIn extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connect stream = new Connect();
 		response.setContentType("text/plain");
-		if (stream.SameUser(request.getParameter("oldUserName"), "userName") && stream.SameUser(request.getParameter("oldPassword"), "password")){
+		if (stream.SameUser(request.getParameter("oldUserName"),request.getParameter("oldPassword"))){
 			
 			response.getWriter().println("permission granted");
 		}
 		else{
 			response.getWriter().println("permission denied");
+			//stream.display();
 		}
 			
 	}

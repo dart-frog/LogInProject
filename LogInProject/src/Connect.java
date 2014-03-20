@@ -84,27 +84,47 @@ Let us know if you’re still having issues
 			e.printStackTrace();
 		}
 	}
-	public boolean SameUser(String hat, String pop){
+	public boolean SameUser(String userxName, String passxword){
+		boolean correctUserName = false;
+		boolean correctPassword = false;
 		Connection con = getConnection();
 		try{
-			String sql = "SELECT " +  pop+ " FROM nate.Registry";
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			String sql = "SELECT userName, password FROM nate.Registry;";
+			Statement stmt = con.createStatement();
 			//pstmt.setString(1, pop);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.getString(0).equals(hat)){
-				pstmt.close();
-				System.out.println();
-				return true;
-			}
-		pstmt.close();
+			System.out.println(sql);
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			System.out.println(rs.getString("userName"));
+			//while(rs.next()){
+				if (rs.getString("userName").equals(userxName)){
+				
+				correctUserName = true;
+				
+				}
+				else{
+					correctUserName = false;
+				}
+				if (rs.getString("password").equals(userxName)){
+					correctPassword = true;
+					
+				}
+				else{
+					correctPassword = false;
+				}
+		
+		stmt.close();
 		} catch(Exception e){
 			e.printStackTrace();
+		}
+		if (correctUserName && correctPassword){
+			return true;
 		}
 		return false;
 	}
 	public String display(){
 		Connection con = getConnection();
-		String x ="";
+		String x = "Users \n";
 		try{
 		String sql = "Select * From nate.Registry";
 		Statement stmt = con.createStatement();

@@ -16,7 +16,7 @@
 	<h1> Welcome to Nate's website please log in</h1>
 	
 	
-	<div style= "text-align: left">
+	<div style= "text-align: center">
 	<p> New Users </p>
 	<form action="Register" method="Post">
 
@@ -25,7 +25,7 @@
 	  <input type="submit" value="Submit"> 
 	  </div>
 	  
-	<div style = "text-align:right">
+	<div style = "text-align: center">
 	<p> Returning Users </p>
 	</form>
 	
