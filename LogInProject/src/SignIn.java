@@ -40,7 +40,7 @@ public class SignIn extends HttpServlet {
 			response.getWriter().println("permission granted");
 		}
 		else{
-			response.getWriter().println("permission denied");
+			response.getWriter().println(request.getParameter("oldUserName"));
 			//stream.display();
 		}
 			

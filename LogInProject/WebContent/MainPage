@@ -30,7 +30,7 @@
 	</form>
 	
 	<form action="SignIn" method="Post">
-	UserName: <input type="text" name="oldName"><br>
+	UserName: <input type="text" name="oldUserName"><br>
 	Password: <input type="password" name="oldPassword"><br>
 	<input type="submit" value="Submit">
 	</div>

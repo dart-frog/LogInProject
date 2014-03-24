@@ -3,6 +3,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.util.HashMap;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
@@ -85,7 +86,6 @@ Let us know if you’re still having issues
 		}
 	}
 	public boolean SameUser(String userxName, String passxword){
-		boolean correctUserName = false;
 		boolean correctPassword = false;
 		Connection con = getConnection();
 		try{
@@ -94,30 +94,27 @@ Let us know if you’re still having issues
 			//pstmt.setString(1, pop);
 			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-			System.out.println(rs.getString("userName"));
-			//while(rs.next()){
-				if (rs.getString("userName").equals(userxName)){
-				
-				correctUserName = true;
-				
-				}
-				else{
-					correctUserName = false;
-				}
-				if (rs.getString("password").equals(userxName)){
-					correctPassword = true;
-					
-				}
-				else{
-					correctPassword = false;
-				}
+			
+			HashMap users = new HashMap();
+			while(rs.next()){
+				users.put(rs.getString("userName"), rs.getString("password"));
+			}
+			System.out.print(users.toString());
+			if(users.get(userxName) == null){
+				correctPassword = false;
+			}
+			if (users.get(userxName).equals(passxword)){
+				correctPassword = true;
+			}
+			else{
+				correctPassword = false;
+			}
 		
 		stmt.close();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
-		if (correctUserName && correctPassword){
+		if (correctPassword){
 			return true;
 		}
 		return false;
