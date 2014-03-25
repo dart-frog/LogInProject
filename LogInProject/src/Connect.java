@@ -85,6 +85,17 @@ Let us know if you’re still having issues
 			e.printStackTrace();
 		}
 	}
+	public void setSessionId(String username){
+		Connection con = getConnection();
+		try{
+			String sql = "INSERT INTO nate.Users (userName, sessionId) VALUES(?,?)";
+			pstmt.setString(1, username);
+			pstmt.setString(2, UUID.randomUUID);
+			int count = pstmt.executeUpdate();
+			System.out.println("ROWS AFFECTED:" + count);
+			pstmt.close();
+		}
+	}
 	public boolean SameUser(String userxName, String passxword){
 		boolean correctPassword = false;
 		Connection con = getConnection();
@@ -136,6 +147,7 @@ Let us know if you’re still having issues
 		}
 		return x;
 	}
+	
 	
 }
 
