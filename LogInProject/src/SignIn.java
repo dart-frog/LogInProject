@@ -1,8 +1,11 @@
 
 
 import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,14 +40,18 @@ public class SignIn extends HttpServlet {
 		Connect stream = new Connect();
 		response.setContentType("text/plain");
 		if (stream.SameUser(request.getParameter("oldUserName"),request.getParameter("oldPassword"))){
+			String uniqUserID = UUID.randomUUID().toString();
 			response.getWriter().println("permission granted");
-			Cookie cookie = new Cookie(request.getParameter("oldUserName"),"placeholder");
-			cookie.setMaxAge(60*60*6); // store for 6 hours
+			stream.setSessionId(request.getParameter("oldUserName"), uniqUserID);
+			Cookie cookie = new Cookie("sessionId", uniqUserID);
+			cookie.setMaxAge(60*60*1); // store for 1 hour
 			response.addCookie(cookie);
+			response.sendRedirect("SecureArea");
 		}
 		else{
 			response.getWriter().println(request.getParameter("permission denied"));
 		}
+		
 			
 	}
 

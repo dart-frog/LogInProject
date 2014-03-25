@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.UUID;
+
+import javax.servlet.http.Cookie;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
@@ -85,15 +88,27 @@ Let us know if you’re still having issues
 			e.printStackTrace();
 		}
 	}
-	public void setSessionId(String username){
+	public void setSessionId(String username, String userId){
 		Connection con = getConnection();
 		try{
 			String sql = "INSERT INTO nate.Users (userName, sessionId) VALUES(?,?)";
+			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, username);
-			pstmt.setString(2, UUID.randomUUID);
+			pstmt.setString(2, userId);
 			int count = pstmt.executeUpdate();
 			System.out.println("ROWS AFFECTED:" + count);
 			pstmt.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public boolean checkSessionId(Cookie[] list){
+		for (Cookie x : list){
+			if (x.getName().equals("sessionId")){
+				x.getValue();
+			}
+			
 		}
 	}
 	public boolean SameUser(String userxName, String passxword){
@@ -120,6 +135,26 @@ Let us know if you’re still having issues
 			else{
 				correctPassword = false;
 			}
+		
+		stmt.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		if (correctPassword){
+			return true;
+		}
+		return false;
+	}
+	public boolean SameUser(String sessionId){
+		Connection con = getConnection();
+		try{
+			String sql = "SELECT sessionId FROM nate.Users;";
+			Statement stmt = con.createStatement();		
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				rs.getString("sessionId").equals(sessionId);
+			}
+			
 		
 		stmt.close();
 		} catch(Exception e){
