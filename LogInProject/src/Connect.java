@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.UUID;
@@ -104,12 +105,27 @@ Let us know if you’re still having issues
 		}
 	}
 	public boolean checkSessionId(Cookie[] list){
-		for (Cookie x : list){
-			if (x.getName().equals("sessionId")){
-				x.getValue();
+		Connection con = getConnection();
+		try{
+			String sql = "SELECT sessionId FROM nate.Users;";
+			Statement stmt = con.createStatement();		
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				for (Cookie c: list){
+					if (c.getName() == "sessionId"){
+						if (c.getValue() == rs.getString("sessionId")){
+							return true;
+						}
+					}
+				}
 			}
-			
+			stmt.close();		
 		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 	public boolean SameUser(String userxName, String passxword){
 		boolean correctPassword = false;
@@ -135,26 +151,6 @@ Let us know if you’re still having issues
 			else{
 				correctPassword = false;
 			}
-		
-		stmt.close();
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-		if (correctPassword){
-			return true;
-		}
-		return false;
-	}
-	public boolean SameUser(String sessionId){
-		Connection con = getConnection();
-		try{
-			String sql = "SELECT sessionId FROM nate.Users;";
-			Statement stmt = con.createStatement();		
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next()){
-				rs.getString("sessionId").equals(sessionId);
-			}
-			
 		
 		stmt.close();
 		} catch(Exception e){

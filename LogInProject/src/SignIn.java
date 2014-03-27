@@ -36,7 +36,6 @@ public class SignIn extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String sessionId = "place holder";
 		Connect stream = new Connect();
 		response.setContentType("text/plain");
 		if (stream.SameUser(request.getParameter("oldUserName"),request.getParameter("oldPassword"))){
