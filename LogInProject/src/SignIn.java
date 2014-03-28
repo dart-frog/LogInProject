@@ -40,12 +40,11 @@ public class SignIn extends HttpServlet {
 		response.setContentType("text/plain");
 		if (stream.SameUser(request.getParameter("oldUserName"),request.getParameter("oldPassword"))){
 			String uniqUserID = UUID.randomUUID().toString();
-			response.getWriter().println("permission granted");
 			stream.setSessionId(request.getParameter("oldUserName"), uniqUserID);
 			Cookie cookie = new Cookie("sessionId", uniqUserID);
-			cookie.setMaxAge(60*60*1); // store for 1 hour
+			cookie.setMaxAge(60*60*1);
 			response.addCookie(cookie);
-			response.sendRedirect("SecureArea");
+			response.getWriter().println("permission granted");
 		}
 		else{
 			response.getWriter().println(request.getParameter("permission denied"));

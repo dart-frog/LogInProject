@@ -15,11 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Register")
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       //<form action="Register" method="Post">
-
-	  //User Name: <input type="text" name="name"><br>
-	  //Password: <input type="password" name="password"><br> 	
-	  //<input type="submit" value="Submit"> 
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -48,8 +43,12 @@ public class Register extends HttpServlet {
 		  pw.println("Password: <input type='password' name='password'><br>");
 		  pw.println("<input type='submit' value='Submit'>");
 		  pw.println("</form>");
-		  pw.println("<p> New Password</p>");
-		  //pw.println("<form action=")
+		  pw.println("<p> Returning users</p>");
+		  pw.println("<form action='SignIn' method = 'Post'>");
+		  pw.println("User Name: <input type='text' name = 'oldUserName'><br>");
+		  pw.println("Password: <input type='password' name='oldPassword'><br>");
+		  pw.println("<input type='submit' value='Submit'>");
+		  pw.println("</form>");
 		  pw.println("</body></html>");
 		
 	}
