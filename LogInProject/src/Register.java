@@ -34,10 +34,12 @@ public class Register extends HttpServlet {
 		  pw.println("<head><title>Nates Website</title></head>");
 		  pw.println("<body>");
 		  pw.println("<h1>Welcome to Nate's Website</h1>");
-		  pw.println("<p> New Users </p>");
 		  if (stream.checkSessionId(request.getCookies())){
 			  pw.println("<p>logged in</p>");
 		  }
+		  pw.println("<form action='LogOut' method = 'Post'>");
+		  pw.println("<input type");
+		  pw.println("<p> New Users </p>");
 		  pw.println("<form action='Register' method='Post'>");
 		  pw.println("User Name: <input type='text' name='name'><br>");
 		  pw.println("Password: <input type='password' name='password'><br>");

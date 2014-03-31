@@ -112,8 +112,8 @@ Let us know if you’re still having issues
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				for (Cookie c: list){
-					if (c.getName() == "sessionId"){
-						if (c.getValue() == rs.getString("sessionId")){
+					if (c.getName().equals("sessionId")){
+						if (c.getValue().equals(rs.getString("sessionId"))){
 							return true;
 						}
 					}
