@@ -89,6 +89,20 @@ Let us know if you’re still having issues
 			e.printStackTrace();
 		}
 	}
+	public void logOut(String userId){
+		Connection con = getConnection();
+		try{
+			String sql = "delete from nate.Users where sessionId = ?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			int count = pstmt.executeUpdate();
+			System.out.println("ROWS AFFECTED:" + count);
+			pstmt.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	public void setSessionId(String username, String userId){
 		Connection con = getConnection();
 		try{

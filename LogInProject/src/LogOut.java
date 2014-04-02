@@ -34,11 +34,16 @@ public class LogOut extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Connect stream = new Connect();
 		Cookie[] list = request.getCookies();
-		for (Cookie c:list){
-			c.setValue(null);
-			c.setMaxAge(0);
+		for (Cookie c: list){
+			if (c.getName().equals("sessionId")){
+				stream.logOut(c.getValue());
+				c.setMaxAge(0);
+				c.setValue(null);
+			}
 		}
+		
 		
 	}
 

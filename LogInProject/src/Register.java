@@ -37,8 +37,16 @@ public class Register extends HttpServlet {
 		  if (stream.checkSessionId(request.getCookies())){
 			  pw.println("<p>logged in</p>");
 		  }
+		  pw.println("<button type='button' onclick='myFunction()'> Java Script</button>");
+		  pw.println("<script>");
+		  pw.println("function short(){");
+		  pw.println("if(document.getElementById('password') > 6){");
+		  pw.println("confirm('your password was to short please make it greater then six letters')");
+		  pw.println("}");
+		  pw.println("}");
+		  pw.println("</script>");
 		  pw.println("<form action='LogOut' method = 'Post'>");
-		  pw.println("<input type");
+		  pw.println("<input type = 'submit' value ='Log Out'>");
 		  pw.println("<p> New Users </p>");
 		  pw.println("<form action='Register' method='Post'>");
 		  pw.println("User Name: <input type='text' name='name'><br>");
