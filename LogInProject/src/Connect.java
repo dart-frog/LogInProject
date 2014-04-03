@@ -120,6 +120,9 @@ Let us know if you’re still having issues
 	}
 	public boolean checkSessionId(Cookie[] list){
 		Connection con = getConnection();
+		if (list == null){
+			return false;
+		}
 		try{
 			String sql = "SELECT sessionId FROM nate.Users;";
 			Statement stmt = con.createStatement();		
@@ -142,6 +145,10 @@ Let us know if you’re still having issues
 		
 	}
 	public boolean SameUser(String userxName, String passxword){
+		if (userxName == null || passxword == null){
+			return false;
+		}
+		
 		boolean correctPassword = false;
 		Connection con = getConnection();
 		try{
