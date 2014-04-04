@@ -39,9 +39,9 @@ public class Register extends HttpServlet {
 		  }
 		  pw.println("<script>");
 		  pw.println("function short(){");
-		  pw.println("if(document.getElementById('password') < 6){");
-		  pw.println("confirm(document.getElementById('password'))");
-		  pw.println("confirm('your password was to short please make it greater then six letters')");
+		  pw.println("console.log(document.forms['register']['password'].value)");
+		  pw.println("if(document.forms['register']['password'].value < 6){");
+		  pw.println("console.log('your password was too short please make it greater then six letters')");
 		  pw.println("}");
 		  pw.println("}");
 		  pw.println("</script>");
@@ -49,7 +49,7 @@ public class Register extends HttpServlet {
 		  pw.println("<input type = 'submit' value ='Log Out'>");
 		  pw.println("</form>");
 		  pw.println("<p> New Users </p>");
-		  pw.println("<form action='Register' method='Post'>");
+		  pw.println("<form action='Register' name='register' method='Post'>");
 		  pw.println("User Name: <input type='text' name='name'><br>");
 		  pw.println("Password: <input type='password' name='password'><br>");
 		  pw.println("<input type='submit' value='Submit' onclick='short()'>");
